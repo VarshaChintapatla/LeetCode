@@ -40,16 +40,7 @@ class Solution {
 
 
 
-
-
-
-
-
-
-
-
-
-xample 1:
+example 1:
 
 Input: prices = [1,2,2], money = 3
 Output: 0
