@@ -1,0 +1,62 @@
+class Solution {
+    public int buyChoco(int[] prices, int money) {
+        int min=money;
+    
+        int flag=0;
+        for(int i=0;i<prices.length;i++)
+        {
+          for(int j=i+1;j<prices.length;j++)
+        {  
+           if(money>=prices[i]+prices[j])
+           {
+              
+                min=Math.min(min,prices[i]+prices[j]);
+                flag=1;
+              
+           }}
+           if(i==prices.length-1)
+           {
+            if(flag==1)
+            {
+                return money-min;
+            }
+           }
+
+        }
+        
+     return money;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+xample 1:
+
+Input: prices = [1,2,2], money = 3
+Output: 0
+Explanation: Purchase the chocolates priced at 1 and 2 units respectively. You will have 3 - 3 = 0 units of money afterwards. Thus, we return 0.
+Example 2:
+
+Input: prices = [3,2,3], money = 3
+Output: 3
+Explanation: You cannot buy 2 chocolates without going in debt, so we return 3.
+ 
