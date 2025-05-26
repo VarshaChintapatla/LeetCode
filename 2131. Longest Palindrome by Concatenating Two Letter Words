@@ -1,0 +1,48 @@
+from collections import Counter
+
+class Solution(object):
+    def longestPalindrome(self, words):
+        count = Counter(words)
+        length = 0
+        used_center = False
+        
+        for word in count:
+            rev = word[::-1]
+            if word == rev:
+                pair_count = count[word] // 2
+                length += pair_count * 4
+                if count[word] % 2 == 1:
+                    used_center = True
+            elif rev in count:
+                pair_count = min(count[word], count[rev])
+                length += pair_count * 4
+                count[rev] = 0
+                count[word] = 0
+        
+        if used_center:
+            length += 2  
+        
+        return length
+
+
+
+
+
+Example 1:
+
+Input: words = ["lc","cl","gg"]
+Output: 6
+Explanation: One longest palindrome is "lc" + "gg" + "cl" = "lcggcl", of length 6.
+Note that "clgglc" is another longest palindrome that can be created.
+Example 2:
+
+Input: words = ["ab","ty","yt","lc","cl","ab"]
+Output: 8
+Explanation: One longest palindrome is "ty" + "lc" + "cl" + "yt" = "tylcclyt", of length 8.
+Note that "lcyttycl" is another longest palindrome that can be created.
+Example 3:
+
+Input: words = ["cc","ll","xx"]
+Output: 2
+Explanation: One longest palindrome is "cc", of length 2.
+Note that "ll" is another longest palindrome that can be created, and so is "xx".
