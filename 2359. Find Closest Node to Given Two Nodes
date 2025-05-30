@@ -1,0 +1,54 @@
+class Solution {
+    private void getDistances(int[] edges, int start, int[] dist) {
+        int n = edges.length;
+        boolean[] visited = new boolean[n];
+        int d = 0;
+        while (start != -1 && !visited[start]) {
+            dist[start] = d++;
+            visited[start] = true;
+            start = edges[start];
+        }
+    }
+
+    public int closestMeetingNode(int[] edges, int node1, int node2) {
+        int n = edges.length;
+        int[] dist1 = new int[n];
+        int[] dist2 = new int[n];
+        Arrays.fill(dist1, -1);
+        Arrays.fill(dist2, -1);
+
+        getDistances(edges, node1, dist1);
+        getDistances(edges, node2, dist2);
+
+        int result = -1;
+        int minDist = Integer.MAX_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            if (dist1[i] != -1 && dist2[i] != -1) {
+                int maxDist = Math.max(dist1[i], dist2[i]);
+                if (maxDist < minDist) {
+                    minDist = maxDist;
+                    result = i;
+                } else if (maxDist == minDist && i < result) {
+                    result = i;
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+
+Example 1:
+
+
+Input: edges = [2,2,3,-1], node1 = 0, node2 = 1
+Output: 2
+Explanation: The distance from node 0 to node 2 is 1, and the distance from node 1 to node 2 is 1.
+The maximum of those two distances is 1. It can be proven that we cannot get a node with a smaller maximum distance than 1, so we return node 2.
+Example 2:
+
+
+Input: edges = [1,2,-1], node1 = 0, node2 = 2
+Output: 2
